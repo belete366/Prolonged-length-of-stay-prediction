@@ -296,8 +296,7 @@ with col1:st.subheader("🔮 Risk Prediction Analysis")
 probabilities = model.predict_proba(patient_features_scaled)[0]
 plos_probability = probabilities[1] * 100  # Probability of class 1 (Prolonged Stay)
      # Display Result Metric
-if plos_probability < 30:
-st.success(f"**Low Risk:** {plos_probability:.1f}% probability of prolonged stay.")
+if plos_probability < 30:st.success(f"**Low Risk:** {plos_probability:.1f}% probability of prolonged stay.")
 elif 30 <= plos_probability < 60:
 st.warning(f"**Moderate Risk:** {plos_probability:.1f}% probability of prolonged stay.")
 else:
