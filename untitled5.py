@@ -315,7 +315,7 @@ summary_df = pd.DataFrame({
                     'Comorbidities', 'Ward', 'Zone', 'Residency', 'Admission Type', "Calculated PLOS Risk"],
          "Value": [str(age), str(sex), str(day), str(daytype), str(admission_month), str(diagnosis), str(comorbidities), str(ward), str(zone), str(residency), str(admission_type), f"{plos_probability:.1f}%"]
      })
-st.table(summary_df)
+st.table(summary_df, use_container_width=True, hide_index=True))
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
