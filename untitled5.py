@@ -222,7 +222,7 @@ df['Sex'] = df['Sex'].replace('M', 'Male', regex=False)
 df['Sex'] = df['Sex'].replace('1173467', 'Male', regex=False)
 def load_model_and_preprocessor():
 try:with open('model.pkl', 'rb') as f:
-             model = pickle.load(f)
+model = pickle.load(f)
 with open('scaler.pkl', 'rb') as f:
              scaler = pickle.load(f)
 with open('preprocessor.pkl', 'rb') as f:
