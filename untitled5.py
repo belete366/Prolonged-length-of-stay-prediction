@@ -208,163 +208,126 @@ with open('admissionmonth_categories.pkl', 'wb') as f:
 
 print("Model, scaler, preprocessor, and unique categories saved successfully!")
 
-#!pip install -q streamlit
-#!npm install -g localtunnel
 
-# Commented out IPython magic to ensure Python compatibility.
-# %%writefile app.py
-# import streamlit as st
-# 
-# st.title("Streamlit on Google Colab")
-# st.write("Hello! Your app is running successfully.")
-
-#!wget -qO- ://icanhazip.com
-
-# Commented out IPython magic to ensure Python compatibility.
-# %%writefile app.py
-# import streamlit as st
-# 
-# st.title("Streamlit on Google Colab")
-# st.write("Hello! Your app is running successfully.")
-#
-
-#!curl ifconfig.me
-#!pip install -q streamlit
-#!npm install -g localtunnel
-
-# Commented out IPython magic to ensure Python compatibility.
-# %%writefile app.py
-# 
-# import streamlit as st
-# import numpy as np
-# import pandas as pd
-# import matplotlib.pyplot as plt
-# import pickle
-# from sklearn.linear_model import LogisticRegression
-# from sklearn.preprocessing import StandardScaler, OneHotEncoder
-# from sklearn.compose import ColumnTransformer
-# 
-# # Load the dataframe
-# df = pd.read_csv('bdata.csv')
-# 
-# # Clean the 'Sex' column as done during training
-# df['Sex'] = df['Sex'].replace('M', 'Male', regex=False)
-# df['Sex'] = df['Sex'].replace('1173467', 'Male', regex=False)
-# 
-# @st.cache_resource
+ 
+ import streamlit as st
+ import numpy as np
+ import pandas as pd
+ import matplotlib.pyplot as plt
+ import pickle
+ from sklearn.linear_model import LogisticRegression
+ from sklearn.preprocessing import StandardScaler, OneHotEncoder
+ from sklearn.compose import ColumnTransformer 
+ # Load the dataframe
+df = pd.read_csv('bdata.csv')
+# Clean the 'Sex' column as done during training
+ df['Sex'] = df['Sex'].replace('M', 'Male', regex=False)
+ df['Sex'] = df['Sex'].replace('1173467', 'Male', regex=False)
 # def load_model_and_preprocessor():
-#     try:
-#         with open('model.pkl', 'rb') as f:
-#             model = pickle.load(f)
-#         with open('scaler.pkl', 'rb') as f:
-#             scaler = pickle.load(f)
-#         with open('preprocessor.pkl', 'rb') as f:
-#             preprocessor = pickle.load(f)
-#         with open('diagnosis_categories.pkl', 'rb') as f:
-#             diagnosis_categories = pickle.load(f)
-#         with open('admissionmonth_categories.pkl', 'rb') as f:
-#             admissionmonth_categories = pickle.load(f)
-#         return model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories
-#     except FileNotFoundError as e:
-#         st.error(f"Model files not found. Please run the cell to save the model, scaler, preprocessor, and categories first. Error: {e}")
-#         st.stop()
-# 
-# model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories = load_model_and_preprocessor()
-# 
-# # Get the feature names for the coefficients plot
-# # This is derived from the preprocessor after it was fitted
-# encoded_feature_names = preprocessor.get_feature_names_out()
-# 
-# # 1. Page Configuration
-# st.set_page_config(
-#     page_title="PLOS Risk Dashboard",
-#     page_icon="🏥",
-#     layout="wide"
-# )
-# 
-# # 3. Dashboard Header
-# st.title("🏥 Prolonged Length of Stay Predictor at DCSH")
-# st.markdown("This dashboard uses a **Logistic Regression** clinical model to estimate the risk of a patient staying in the DCSH for more than 6 days.")
-# st.divider()
-# 
-# # 4. Sidebar for Patient Data Input
-# st.sidebar.header("📋 Patient Clinical Metrics")
-# 
-# age = st.sidebar.slider("Patient Age", min_value=0, max_value=100, value=55, step=1)
-# sex = st.sidebar.selectbox("Sex", options=sorted(df['Sex'].unique())) # Use unique values from df
-# day = st.sidebar.selectbox("Day", options=sorted(df['Day'].unique())) # Use unique values from df
-# daytype = st.sidebar.selectbox("Day Type", options=sorted(df['Daytype'].unique())) # Use unique values from df
-# admission_month = st.sidebar.selectbox("Admission Month", options=sorted(admissionmonth_categories))
-# diagnosis = st.sidebar.selectbox("Diagnosis", options=sorted(diagnosis_categories))
-# comorbidities = st.sidebar.selectbox("Comorbidities", options=sorted(df['Comorbidities'].unique())) # Use unique values from df
-# ward = st.sidebar.selectbox("Ward", options=sorted(df['Ward'].unique())) # Use unique values from df
-# zone = st.sidebar.selectbox("Zone", options=sorted(df['Zone'].unique())) # Use unique values from df
-# residency = st.sidebar.selectbox("Residency", options=sorted(df['Residency'].unique())) # Use unique values from df
-# admission_type = st.sidebar.selectbox("Admission Type", options=sorted(df['Admissiontype'].unique())) # Use unique values from df
-# 
-# # Create a DataFrame from the inputs, matching the original training data's structure before one-hot encoding
-# input_data = pd.DataFrame({
-#     'Age': [age],
-#     'Sex': [sex],
-#     'Day': [day],
-#     'Daytype': [daytype],
-#     'Admissionmonth': [admission_month],
-#     'Diagnosis': [diagnosis],
-#     'Comorbidities': [comorbidities],
-#     'Ward': [ward],
-#     'Zone': [zone],
-#     'Residency': [residency],
-#     'Admissiontype': [admission_type]
-# })
-# 
-# # Apply the preprocessor (one-hot encoding) to the input data
-# X_input_encoded = preprocessor.transform(input_data)
-# 
-# # Convert the numpy array back to a DataFrame with correct column names
-# X_input_df = pd.DataFrame(X_input_encoded, columns=encoded_feature_names)
-# 
-# # Scale the preprocessed input features
-# patient_features_scaled = scaler.transform(X_input_df)
-# 
-# # Convert scaled array back to DataFrame with feature names to avoid UserWarning for model.predict_proba
-# patient_features_scaled = pd.DataFrame(patient_features_scaled, columns=encoded_feature_names)
-# 
-# # 5. Main Dashboard Layout (Two Columns)
-# col1, col2 = st.columns([1, 1])
-# 
-# with col1:
-#     st.subheader("🔮 Risk Prediction Analysis")
-# 
-#     # Generate prediction probabilities from Logistic Regression
-#     probabilities = model.predict_proba(patient_features_scaled)[0]
-#     plos_probability = probabilities[1] * 100  # Probability of class 1 (Prolonged Stay)
-# 
-#     # Display Result Metric
-#     if plos_probability < 30:
-#         st.success(f"**Low Risk:** {plos_probability:.1f}% probability of prolonged stay.")
-#     elif 30 <= plos_probability < 60:
-#         st.warning(f"**Moderate Risk:** {plos_probability:.1f}% probability of prolonged stay.")
-#     else:
-#         st.error(f"**High Risk:** {plos_probability:.1f}% probability of prolonged stay.")
-# 
-#     # Visual Progress Bar
-#     st.progress(int(plos_probability))
-# 
-#     # Recommendation Box based on risk threshold
-#     st.markdown("### 🧑‍⚕️ Clinical Guidance")
-#     if plos_probability >= 50:
-#         st.info("📌 **Recommendation:** Flag for early discharge planning, case management review, and pharmacy reconciliation within 24 hours of admission.")
-#     else:
-#         st.info("📌 **Recommendation:** Standard clinical pathways apply. Re-evaluate if clinical status changes.")
-# 
-# with col2:
-#     st.subheader("📋 Active Patient Summary Reference")
-#     summary_df = pd.DataFrame({
-#         "Metric": ['Age', 'Sex', 'Day', 'Day Type', 'Admission Month', 'Diagnosis',
-#                    'Comorbidities', 'Ward', 'Zone', 'Residency', 'Admission Type', "Calculated PLOS Risk"],
-#         "Value": [str(age), str(sex), str(day), str(daytype), str(admission_month), str(diagnosis), str(comorbidities), str(ward), str(zone), str(residency), str(admission_type), f"{plos_probability:.1f}%"]
-#     })
-#     st.table(summary_df)
+    try:
+         with open('model.pkl', 'rb') as f:
+             model = pickle.load(f)
+         with open('scaler.pkl', 'rb') as f:
+             scaler = pickle.load(f)
+        with open('preprocessor.pkl', 'rb') as f:
+             preprocessor = pickle.load(f)
+         with open('diagnosis_categories.pkl', 'rb') as f:
+             diagnosis_categories = pickle.load(f)
+         with open('admissionmonth_categories.pkl', 'rb') as f:
+             admissionmonth_categories = pickle.load(f)
+         return model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories
+     except FileNotFoundError as e:
+         st.error(f"Model files not found. Please run the cell to save the model, scaler, preprocessor, and categories first. Error: {e}")
+         st.stop()
+ 
+ model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories = load_model_and_preprocessor()
+ # Get the feature names for the coefficients plot
+ # This is derived from the preprocessor after it was fitted
+ encoded_feature_names = preprocessor.get_feature_names_out()
+ 
+ # 1. Page Configuration
+st.set_page_config(
+    page_title="PLOS Risk Dashboard",
+    page_icon="🏥",
+    layout="wide")
+ 
+ # 3. Dashboard Header
+ st.title("🏥 Prolonged Length of Stay Predictor at DCSH")
+ st.markdown("This dashboard uses a **Logistic Regression** clinical model to estimate the risk of a patient staying in the DCSH for more than 6 days.")
+ st.divider()
+
+ # 4. Sidebar for Patient Data Input
+ st.sidebar.header("📋 Patient Clinical Metrics")
+ 
+ age = st.sidebar.slider("Patient Age", min_value=0, max_value=100, value=55, step=1)
+ sex = st.sidebar.selectbox("Sex", options=sorted(df['Sex'].unique())) # Use unique values from df
+ day = st.sidebar.selectbox("Day", options=sorted(df['Day'].unique())) # Use unique values from df
+ daytype = st.sidebar.selectbox("Day Type", options=sorted(df['Daytype'].unique())) # Use unique values from df
+ admission_month = st.sidebar.selectbox("Admission Month", options=sorted(admissionmonth_categories))
+ diagnosis = st.sidebar.selectbox("Diagnosis", options=sorted(diagnosis_categories))
+ comorbidities = st.sidebar.selectbox("Comorbidities", options=sorted(df['Comorbidities'].unique())) # Use unique values from df
+ ward = st.sidebar.selectbox("Ward", options=sorted(df['Ward'].unique())) # Use unique values from df
+ zone = st.sidebar.selectbox("Zone", options=sorted(df['Zone'].unique())) # Use unique values from df# residency = st.sidebar.selectbox("Residency", options=sorted(df['Residency'].unique())) # Use unique values from df
+ admission_type = st.sidebar.selectbox("Admission Type", options=sorted(df['Admissiontype'].unique())) # Use unique values from df
+
+ # Create a DataFrame from the inputs, matching the original training data's structure before one-hot encoding
+ input_data = pd.DataFrame({
+    'Age': [age],
+     'Sex': [sex],
+     'Day': [day],
+     'Daytype': [daytype],
+     'Admissionmonth': [admission_month],
+     'Diagnosis': [diagnosis],
+     'Comorbidities': [comorbidities],
+     'Ward': [ward],
+     'Zone': [zone],
+     'Residency': [residency],
+     'Admissiontype': [admission_type]
+ })
+ 
+ # Apply the preprocessor (one-hot encoding) to the input data
+ X_input_encoded = preprocessor.transform(input_data)
+ 
+ # Convert the numpy array back to a DataFrame with correct column names
+ X_input_df = pd.DataFrame(X_input_encoded, columns=encoded_feature_names)
+ # Scale the preprocessed input features
+ patient_features_scaled = scaler.transform(X_input_df)
+ # Convert scaled array back to DataFrame with feature names to avoid UserWarning for model.predict_proba
+ patient_features_scaled = pd.DataFrame(patient_features_scaled, columns=encoded_feature_names)
+ 
+ # 5. Main Dashboard Layout (Two Columns)
+col1, col2 = st.columns([1, 1])
+ with col1:
+     st.subheader("🔮 Risk Prediction Analysis")
+ 
+    # Generate prediction probabilities from Logistic Regression
+     probabilities = model.predict_proba(patient_features_scaled)[0]
+    plos_probability = probabilities[1] * 100  # Probability of class 1 (Prolonged Stay)
+     # Display Result Metric
+    if plos_probability < 30:
+        st.success(f"**Low Risk:** {plos_probability:.1f}% probability of prolonged stay.")
+    elif 30 <= plos_probability < 60:
+        st.warning(f"**Moderate Risk:** {plos_probability:.1f}% probability of prolonged stay.")
+    else:
+         st.error(f"**High Risk:** {plos_probability:.1f}% probability of prolonged stay.")
+ 
+    # Visual Progress Bar
+    st.progress(int(plos_probability))
+    # Recommendation Box based on risk threshold
+   st.markdown("### 🧑‍⚕️ Clinical Guidance")
+    if plos_probability >= 50:
+       st.info("📌 **Recommendation:** Flag for early discharge planning, case management review, and pharmacy reconciliation within 24 hours of admission.")
+    else:
+        st.info("📌 **Recommendation:** Standard clinical pathways apply. Re-evaluate if clinical status changes.")
+ 
+ with col2:
+     st.subheader("📋 Active Patient Summary Reference")
+     summary_df = pd.DataFrame({
+         "Metric": ['Age', 'Sex', 'Day', 'Day Type', 'Admission Month', 'Diagnosis',
+                    'Comorbidities', 'Ward', 'Zone', 'Residency', 'Admission Type', "Calculated PLOS Risk"],
+         "Value": [str(age), str(sex), str(day), str(daytype), str(admission_month), str(diagnosis), str(comorbidities), str(ward), str(zone), str(residency), str(admission_type), f"{plos_probability:.1f}%"]
+     })
+     st.table(summary_df)
 
 import pandas as pd
 import numpy as np
