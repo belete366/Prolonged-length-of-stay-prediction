@@ -429,7 +429,3 @@ model_lr = LogisticRegression(random_state=42, solver='liblinear')
 model_lr.fit(X_train_scaled, y_train)
 
 print("Scaler and model_lr re-initialized and trained.")
-
-#nohup streamlit run app.py --server.port 8000 &
-
-#streamlit run app.py & npx localtunnel --port 8501
