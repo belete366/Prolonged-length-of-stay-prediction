@@ -305,11 +305,11 @@ with col1:
         else:st.error(f"**High Risk:** {plos_probability:.1f}% probability of prolonged stay.")
  
     # Visual Progress Bar
-st.progress(int(plos_probability))
+        st.progress(int(plos_probability))
     # Recommendation Box based on risk threshold
-st.markdown("### 🧑‍⚕️ Clinical Guidance")
-if plos_probability >= 50:st.info("📌 **Recommendation:** Flag for early discharge planning, case management review, and pharmacy reconciliation within 24 hours of admission.")
-else:st.info("📌 **Recommendation:** Standard clinical pathways apply. Re-evaluate if clinical status changes.")
+        st.markdown("### 🧑‍⚕️ Clinical Guidance")
+        if plos_probability >= 50:st.info("📌 **Recommendation:** Flag for early discharge planning, case management review, and pharmacy reconciliation within 24 hours of admission.")
+        else:st.info("📌 **Recommendation:** Standard clinical pathways apply. Re-evaluate if clinical status changes.")
 with col2:
     with st.container(border=True):
         st.subheader("📋 Active Patient Summary Reference")
