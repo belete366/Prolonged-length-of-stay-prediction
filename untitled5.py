@@ -239,8 +239,7 @@ except FileNotFoundError as e:
 model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories = load_model_and_preprocessor()
  # Get the feature names for the coefficients plot
  # This is derived from the preprocessor after it was fitted
- encoded_feature_names = preprocessor.get_feature_names_out()
- 
+encoded_feature_names = preprocessor.get_feature_names_out()
  # 1. Page Configuration
 st.set_page_config(
     page_title="PLOS Risk Dashboard",
