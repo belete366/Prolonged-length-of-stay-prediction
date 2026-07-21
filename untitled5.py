@@ -224,16 +224,16 @@ df['Sex'] = df['Sex'].replace('1173467', 'Male', regex=False)
 try:
   with open('model.pkl', 'rb') as f:
              model = pickle.load(f)
-         with open('scaler.pkl', 'rb') as f:
+  with open('scaler.pkl', 'rb') as f:
              scaler = pickle.load(f)
-        with open('preprocessor.pkl', 'rb') as f:
+  with open('preprocessor.pkl', 'rb') as f:
              preprocessor = pickle.load(f)
-         with open('diagnosis_categories.pkl', 'rb') as f:
+  with open('diagnosis_categories.pkl', 'rb') as f:
              diagnosis_categories = pickle.load(f)
-         with open('admissionmonth_categories.pkl', 'rb') as f:
+  with open('admissionmonth_categories.pkl', 'rb') as f:
              admissionmonth_categories = pickle.load(f)
-         return model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories
-     except FileNotFoundError as e:
+  return model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories
+except FileNotFoundError as e:
          st.error(f"Model files not found. Please run the cell to save the model, scaler, preprocessor, and categories first. Error: {e}")
          st.stop()
  
