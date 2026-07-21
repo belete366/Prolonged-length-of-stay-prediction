@@ -300,9 +300,9 @@ with col1:
         probabilities = model.predict_proba(patient_features_scaled)[0]
         plos_probability = probabilities[1] * 100  # Probability of class 1 (Prolonged Stay)
      # Display Result Metric
-if plos_probability < 30:st.success(f"**Low Risk:** {plos_probability:.1f}% probability of prolonged stay.")
-elif 30 <= plos_probability < 60:st.warning(f"**Moderate Risk:** {plos_probability:.1f}% probability of prolonged stay.")
-else:st.error(f"**High Risk:** {plos_probability:.1f}% probability of prolonged stay.")
+        if plos_probability < 30:st.success(f"**Low Risk:** {plos_probability:.1f}% probability of prolonged stay.")
+        elif 30 <= plos_probability < 60:st.warning(f"**Moderate Risk:** {plos_probability:.1f}% probability of prolonged stay.")
+        else:st.error(f"**High Risk:** {plos_probability:.1f}% probability of prolonged stay.")
  
     # Visual Progress Bar
 st.progress(int(plos_probability))
@@ -316,9 +316,8 @@ with col2:
         summary_df = pd.DataFrame({
          "Metric": ['Age', 'Sex', 'Day', 'Day Type', 'Admission Month', 'Diagnosis',
                     'Comorbidities', 'Ward', 'Zone', 'Residency', 'Admission Type', "Calculated PLOS Risk"],
-         "Value": [str(age), str(sex), str(day), str(daytype), str(admission_month), str(diagnosis), str(comorbidities), str(ward), str(zone), str(residency), str(admission_type), f"{plos_probability:.1f}%"]
-     })
-st.dataframe(summary_df, use_container_width=True, hide_index=True)
+         "Value": [str(age), str(sex), str(day), str(daytype), str(admission_month), str(diagnosis), str(comorbidities), str(ward), str(zone), str(residency), str(admission_type), f"{plos_probability:.1f}%"]})
+        st.dataframe(summary_df, use_container_width=True, hide_index=True)
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
