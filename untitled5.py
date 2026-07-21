@@ -232,7 +232,7 @@ def load_model_and_preprocessor():
             diagnosis_categories = pickle.load(f)
         with open('admissionmonth_categories.pkl', 'rb') as f:
             admissionmonth_categories = pickle.load(f)
-except FileNotFoundError as e:
+    except FileNotFoundError as e:
         st.error(
             f"Model files not found. Please run the cell to save the model, scaler, preprocessor, and categories first. Error: {e}"
         )
