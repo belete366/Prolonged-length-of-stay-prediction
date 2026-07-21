@@ -237,7 +237,7 @@ def load_model_and_preprocessor():
             f"Model files not found. Please run the cell to save the model, scaler, preprocessor, and categories first. Error: {e}"
         )
         st.stop()
-return model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories
+    return model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories
 model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories = load_model_and_preprocessor()
  # Get the feature names for the coefficients plot
  # This is derived from the preprocessor after it was fitted
