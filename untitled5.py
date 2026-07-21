@@ -293,7 +293,7 @@ patient_features_scaled = scaler.transform(X_input_df)
 patient_features_scaled = pd.DataFrame(patient_features_scaled, columns=encoded_feature_names)
  
  # 5. Main Dashboard Layout (Two Columns)
-col1, col2 = st.columns([1, 1])
+col1, col2 = st.columns([2, 3])
 with col1:st.subheader("🔮 Risk Prediction Analysis")
     # Generate prediction probabilities from Logistic Regression
 probabilities = model.predict_proba(patient_features_scaled)[0]
