@@ -207,9 +207,6 @@ with open('admissionmonth_categories.pkl', 'wb') as f:
     pickle.dump(unique_admission_months, f)
 
 print("Model, scaler, preprocessor, and unique categories saved successfully!")
-
-
- 
  import streamlit as st
  import numpy as np
  import pandas as pd
