@@ -232,10 +232,10 @@ try:
              diagnosis_categories = pickle.load(f)
   with open('admissionmonth_categories.pkl', 'rb') as f:
              admissionmonth_categories = pickle.load(f)
-return model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories
-except FileNotFoundError as e:
+  except FileNotFoundError as e:
          st.error(f"Model files not found. Please run the cell to save the model, scaler, preprocessor, and categories first. Error: {e}")
          st.stop()
+return model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories
 model, scaler, preprocessor, diagnosis_categories, admissionmonth_categories = load_model_and_preprocessor()
  # Get the feature names for the coefficients plot
  # This is derived from the preprocessor after it was fitted
