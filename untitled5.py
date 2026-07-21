@@ -220,7 +220,7 @@ df = pd.read_csv('bdata.csv')
 # Clean the 'Sex' column as done during training
 df['Sex'] = df['Sex'].replace('M', 'Male', regex=False)
 df['Sex'] = df['Sex'].replace('1173467', 'Male', regex=False)
-# def load_model_and_preprocessor():
+def load_model_and_preprocessor():
 try:
   with open('model.pkl', 'rb') as f:
              model = pickle.load(f)
