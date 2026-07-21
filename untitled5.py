@@ -208,13 +208,13 @@ with open('admissionmonth_categories.pkl', 'wb') as f:
 
 print("Model, scaler, preprocessor, and unique categories saved successfully!")
 import streamlit as st
- import numpy as np
- import pandas as pd
- import matplotlib.pyplot as plt
- import pickle
- from sklearn.linear_model import LogisticRegression
- from sklearn.preprocessing import StandardScaler, OneHotEncoder
- from sklearn.compose import ColumnTransformer 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import pickle
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer 
  # Load the dataframe
 df = pd.read_csv('bdata.csv')
 # Clean the 'Sex' column as done during training
