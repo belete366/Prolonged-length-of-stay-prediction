@@ -292,7 +292,7 @@ patient_features_scaled = pd.DataFrame(patient_features_scaled, columns=encoded_
  # 5. Main Dashboard Layout (Two Columns)
 col1, col2 = st.columns([1, 1])
 with col1:
-st.subheader("🔮 Risk Prediction Analysis")
+st.subheader("🔮Risk Prediction Analysis")
     # Generate prediction probabilities from Logistic Regression
 probabilities = model.predict_proba(patient_features_scaled)[0]
 plos_probability = probabilities[1] * 100  # Probability of class 1 (Prolonged Stay)
