@@ -311,7 +311,7 @@ st.markdown("### 🧑‍⚕️ Clinical Guidance")
 if plos_probability >= 50:st.info("📌 **Recommendation:** Flag for early discharge planning, case management review, and pharmacy reconciliation within 24 hours of admission.")
 else:st.info("📌 **Recommendation:** Standard clinical pathways apply. Re-evaluate if clinical status changes.")
 with col2:st.subheader("📋 Active Patient Summary Reference")
-with st.container(border=True):
+    with st.container(border=True):
 summary_df = pd.DataFrame({
          "Metric": ['Age', 'Sex', 'Day', 'Day Type', 'Admission Month', 'Diagnosis',
                     'Comorbidities', 'Ward', 'Zone', 'Residency', 'Admission Type', "Calculated PLOS Risk"],
