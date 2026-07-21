@@ -295,10 +295,9 @@ patient_features_scaled = pd.DataFrame(patient_features_scaled, columns=encoded_
  # 5. Main Dashboard Layout (Two Columns)
 col1, col2 = st.columns(2)
 with col1:st.subheader("🔮 Risk Prediction Analysis")
-    # Generate prediction probabilities from Logistic Regression
-with st.container(border=True):
-    probabilities = model.predict_proba(patient_features_scaled)[0]
-    plos_probability = probabilities[1] * 100  # Probability of class 1 (Prolonged Stay)
+    with st.container(border=True):
+        probabilities = model.predict_proba(patient_features_scaled)[0]
+        plos_probability = probabilities[1] * 100  # Probability of class 1 (Prolonged Stay)
      # Display Result Metric
 if plos_probability < 30:st.success(f"**Low Risk:** {plos_probability:.1f}% probability of prolonged stay.")
 elif 30 <= plos_probability < 60:st.warning(f"**Moderate Risk:** {plos_probability:.1f}% probability of prolonged stay.")
@@ -311,8 +310,8 @@ st.markdown("### 🧑‍⚕️ Clinical Guidance")
 if plos_probability >= 50:st.info("📌 **Recommendation:** Flag for early discharge planning, case management review, and pharmacy reconciliation within 24 hours of admission.")
 else:st.info("📌 **Recommendation:** Standard clinical pathways apply. Re-evaluate if clinical status changes.")
 with col2:st.subheader("📋 Active Patient Summary Reference")
-with st.container(border=True):
-    summary_df = pd.DataFrame({
+    with st.container(border=True):
+        summary_df = pd.DataFrame({
          "Metric": ['Age', 'Sex', 'Day', 'Day Type', 'Admission Month', 'Diagnosis',
                     'Comorbidities', 'Ward', 'Zone', 'Residency', 'Admission Type', "Calculated PLOS Risk"],
          "Value": [str(age), str(sex), str(day), str(daytype), str(admission_month), str(diagnosis), str(comorbidities), str(ward), str(zone), str(residency), str(admission_type), f"{plos_probability:.1f}%"]
