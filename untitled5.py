@@ -293,8 +293,9 @@ patient_features_scaled = scaler.transform(X_input_df)
 patient_features_scaled = pd.DataFrame(patient_features_scaled, columns=encoded_feature_names)
  
  # 5. Main Dashboard Layout (Two Columns)
-col1, col2 = st.columns([2, 3])
-with col1:st.subheader("🔮 Risk Prediction Analysis")
+col1, col2 = st.columns([2])
+with col1:
+    st.subheader("🔮 Risk Prediction Analysis")
     # Generate prediction probabilities from Logistic Regression
 probabilities = model.predict_proba(patient_features_scaled)[0]
 plos_probability = probabilities[1] * 100  # Probability of class 1 (Prolonged Stay)
@@ -309,7 +310,8 @@ st.progress(int(plos_probability))
 st.markdown("### 🧑‍⚕️ Clinical Guidance")
 if plos_probability >= 50:st.info("📌 **Recommendation:** Flag for early discharge planning, case management review, and pharmacy reconciliation within 24 hours of admission.")
 else:st.info("📌 **Recommendation:** Standard clinical pathways apply. Re-evaluate if clinical status changes.")
-with col2:st.subheader("📋 Active Patient Summary Reference")
+with 
+    col2:st.subheader("📋 Active Patient Summary Reference")
 summary_df = pd.DataFrame({
          "Metric": ['Age', 'Sex', 'Day', 'Day Type', 'Admission Month', 'Diagnosis',
                     'Comorbidities', 'Ward', 'Zone', 'Residency', 'Admission Type', "Calculated PLOS Risk"],
