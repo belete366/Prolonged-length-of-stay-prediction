@@ -263,7 +263,8 @@ admission_month = st.sidebar.selectbox("Admission Month", options=sorted(admissi
 diagnosis = st.sidebar.selectbox("Diagnosis", options=sorted(diagnosis_categories))
 comorbidities = st.sidebar.selectbox("Comorbidities", options=sorted(df['Comorbidities'].unique())) # Use unique values from df
 ward = st.sidebar.selectbox("Ward", options=sorted(df['Ward'].unique())) # Use unique values from df
-zone = st.sidebar.selectbox("Zone", options=sorted(df['Zone'].unique())) # Use unique values from df# residency = st.sidebar.selectbox("Residency", options=sorted(df['Residency'].unique())) # Use unique values from df
+zone = st.sidebar.selectbox("Zone", options=sorted(df['Zone'].unique())) # Use unique values from df
+residency = st.sidebar.selectbox("Residency", options=sorted(df['Residency'].unique())) # Use unique values from df
 admission_type = st.sidebar.selectbox("Admission Type", options=sorted(df['Admissiontype'].unique())) # Use unique values from df
 
  # Create a DataFrame from the inputs, matching the original training data's structure before one-hot encoding
