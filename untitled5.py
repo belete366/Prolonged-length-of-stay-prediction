@@ -297,21 +297,16 @@ probabilities = model.predict_proba(patient_features_scaled)[0]
 plos_probability = probabilities[1] * 100  # Probability of class 1 (Prolonged Stay)
      # Display Result Metric
 if plos_probability < 30:st.success(f"**Low Risk:** {plos_probability:.1f}% probability of prolonged stay.")
-elif 30 <= plos_probability < 60:
-st.warning(f"**Moderate Risk:** {plos_probability:.1f}% probability of prolonged stay.")
-else:
-st.error(f"**High Risk:** {plos_probability:.1f}% probability of prolonged stay.")
+elif 30 <= plos_probability < 60:st.warning(f"**Moderate Risk:** {plos_probability:.1f}% probability of prolonged stay.")
+else:st.error(f"**High Risk:** {plos_probability:.1f}% probability of prolonged stay.")
  
     # Visual Progress Bar
 st.progress(int(plos_probability))
     # Recommendation Box based on risk threshold
 st.markdown("### 🧑‍⚕️ Clinical Guidance")
-if plos_probability >= 50:
-st.info("📌 **Recommendation:** Flag for early discharge planning, case management review, and pharmacy reconciliation within 24 hours of admission.")
-else:
-st.info("📌 **Recommendation:** Standard clinical pathways apply. Re-evaluate if clinical status changes.")
-with col2:
-st.subheader("📋 Active Patient Summary Reference")
+if plos_probability >= 50:st.info("📌 **Recommendation:** Flag for early discharge planning, case management review, and pharmacy reconciliation within 24 hours of admission.")
+else:st.info("📌 **Recommendation:** Standard clinical pathways apply. Re-evaluate if clinical status changes.")
+with col2:st.subheader("📋 Active Patient Summary Reference")
 summary_df = pd.DataFrame({
          "Metric": ['Age', 'Sex', 'Day', 'Day Type', 'Admission Month', 'Diagnosis',
                     'Comorbidities', 'Ward', 'Zone', 'Residency', 'Admission Type', "Calculated PLOS Risk"],
