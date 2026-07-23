@@ -247,8 +247,19 @@ st.set_page_config(
     page_title="PILOS Risk Dashboard",
     page_icon="🏥",
     layout="wide")
+# Custom CSS to completely remove Streamlit header, footer, and main menu logo
+hide_branding_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    [data-testid="stHeader"] {background: rgba(0,0,0,0); pointer-events: none;}
+    </style>
+"""
+st.markdown(hide_branding_style, unsafe_html=True)
+st.write("Hello! This app is now free of all default Streamlit words and logos.")
  # 3. Dashboard Header
-st.title("🏥 Prolonged Inpatient Length of Stay Predictor at DCSH")
+st.title("🏥 Prolonged Inpatient Length of Stay Predictors at DCSH")
 st.markdown("This dashboard uses a **Logistic Regression** clinical model to estimate the risk of a patient staying in the DCSH for more than 6 days.")
 st.divider()
 
