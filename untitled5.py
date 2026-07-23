@@ -256,7 +256,7 @@ hide_branding_style = """
     [data-testid="stHeader"] {background: rgba(0,0,0,0); pointer-events: none;}
     </style>
 """
-st.markdown(hide_branding_style, unsafe_html=True)
+st.markdown(hide_branding_style, unsafe_allow_html=True)
 st.write("Hello! This app is now free of all default Streamlit words and logos.")
  # 3. Dashboard Header
 st.title("🏥 Prolonged Inpatient Length of Stay Predictors at DCSH")
