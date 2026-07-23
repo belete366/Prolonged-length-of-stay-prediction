@@ -208,7 +208,6 @@ with open('admissionmonth_categories.pkl', 'wb') as f:
 
 print("Model, scaler, preprocessor, and unique categories saved successfully!")
 import streamlit as st
-import time
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -309,9 +308,7 @@ with col1:
     # Recommendation Box based on risk threshold
         st.markdown("### 🧑‍⚕️ Clinical Guidance")
         if plos_probability >= 50:st.info("📌 **Recommendation:** Prolonged stay predicted.Flag for early discharge planning, Medication management, and audit resource requirements (staffing, bed, and equipments).")
-        ai_summary = "💡 **AI Analysis:** High risk detected. Early multidisciplinary coordination is required to prevent discharge delays."
         else:st.info("📌 **Recommendation:** Non prolonged (short) stay predicted. Standard clinical pathways apply. Re-evaluate if clinical status changes.")
-        ai_summary = "💡 **AI Analysis:** Low risk profile. Routine clinical workflow and monitoring are recommended." 
 with col2:
     with st.container(border=True):
         st.subheader("📋 Active Patient Summary Reference")
