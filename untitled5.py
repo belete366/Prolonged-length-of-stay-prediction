@@ -308,11 +308,6 @@ with col1:
         st.progress(int(plos_probability))
     # Recommendation Box based on risk threshold
         st.markdown("### 🧑‍⚕️ Clinical Guidance")
-        # 1. Generator function to simulate AI typing
-        def stream_ai_analysis(text):
-        for word in text.split(" "):
-        yield word + " "
-        time.sleep(0.05)  # Speed adjustment (seconds per word)
         if plos_probability >= 50:st.info("📌 **Recommendation:** Prolonged stay predicted.Flag for early discharge planning, Medication management, and audit resource requirements (staffing, bed, and equipments).")
         ai_summary = "💡 **AI Analysis:** High risk detected. Early multidisciplinary coordination is required to prevent discharge delays."
         else:st.info("📌 **Recommendation:** Non prolonged (short) stay predicted. Standard clinical pathways apply. Re-evaluate if clinical status changes.")
