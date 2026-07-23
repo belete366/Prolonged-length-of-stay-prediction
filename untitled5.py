@@ -247,15 +247,6 @@ st.set_page_config(
     page_title="PILOS Risk Dashboard",
     page_icon="🏥",
     layout="wide")
-
-import streamlit as st
-
-# 1. Set the page config with your .ico file
-st.set_page_config(
-    page_title="Your App Title",
-    page_icon="assets/favicon.ico",  # Update this to your actual file path
-    layout="wide"
-)
  # 3. Dashboard Header
 st.title("🏥 Prolonged Inpatient Length of Stay Predictor at DCSH")
 st.markdown("This dashboard uses a **Logistic Regression** clinical model to estimate the risk of a patient staying in the DCSH for more than 6 days.")
