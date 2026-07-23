@@ -247,7 +247,7 @@ st.set_page_config(
     page_title="PILOS Risk Dashboard",
     page_icon="🏥",
     layout="wide")
- st.logo("🏥")
+st.logo("🏥")
  # 3. Dashboard Header
 st.title("🏥 Prolonged Length of Stay Predictor at DCSH")
 st.markdown("This dashboard uses a **Logistic Regression** clinical model to estimate the risk of a patient staying in the DCSH for more than 6 days.")
