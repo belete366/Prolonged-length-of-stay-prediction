@@ -295,7 +295,7 @@ patient_features_scaled = pd.DataFrame(patient_features_scaled, columns=encoded_
 col1, col2 = st.columns(2)
 with col1:
     with st.container(border=True):
-        st.subheader("🔮 Prolonged Stay Risk Prediction Analysis")
+        st.subheader("🔮 Prolonged Stay Risk Prediction")
         probabilities = model.predict_proba(patient_features_scaled)[0]
         plos_probability = probabilities[1] * 100  # Probability of class 1 (Prolonged Stay)
      # Display Result Metric
