@@ -208,6 +208,7 @@ with open('admissionmonth_categories.pkl', 'wb') as f:
 
 print("Model, scaler, preprocessor, and unique categories saved successfully!")
 import streamlit as st
+import time
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -248,7 +249,7 @@ st.set_page_config(
     page_icon="🏥",
     layout="wide")
  # 3. Dashboard Header
-st.title("🏥 Prolonged Inpatient Length of Stay Predictors at DCSH")
+st.title("🏥 Prolonged Length of Stay Predictors at DCSH")
 st.markdown("This dashboard uses a **Logistic Regression** clinical model to estimate the risk of a patient staying in the DCSH for more than 6 days.")
 st.divider()
 
@@ -295,7 +296,7 @@ patient_features_scaled = pd.DataFrame(patient_features_scaled, columns=encoded_
 col1, col2 = st.columns(2)
 with col1:
     with st.container(border=True):
-        st.subheader("🔮 Risk Prediction Analysis")
+        st.subheader("🔮 Prolonged Stay Risk Prediction Analysis")
         probabilities = model.predict_proba(patient_features_scaled)[0]
         plos_probability = probabilities[1] * 100  # Probability of class 1 (Prolonged Stay)
      # Display Result Metric
@@ -307,8 +308,15 @@ with col1:
         st.progress(int(plos_probability))
     # Recommendation Box based on risk threshold
         st.markdown("### 🧑‍⚕️ Clinical Guidance")
-        if plos_probability >= 50:st.info("📌 **Recommendation:** Flag for early discharge planning, case management review, and pharmacy reconciliation within 24 hours of admission.")
-        else:st.info("📌 **Recommendation:** Standard clinical pathways apply. Re-evaluate if clinical status changes.")
+        # 1. Generator function to simulate AI typing
+        def stream_ai_analysis(text):
+        for word in text.split(" "):
+        yield word + " "
+        time.sleep(0.05)  # Speed adjustment (seconds per word)
+        if plos_probability >= 50:st.info("📌 **Recommendation:** Prolonged stay predicted.Flag for early discharge planning, Medication management, and audit resource requirements (staffing, bed, and equipments).")
+        ai_summary = "💡 **AI Analysis:** High risk detected. Early multidisciplinary coordination is required to prevent discharge delays."
+        else:st.info("📌 **Recommendation:** Non prolonged (short) stay predicted. Standard clinical pathways apply. Re-evaluate if clinical status changes.")
+        ai_summary = "💡 **AI Analysis:** Low risk profile. Routine clinical workflow and monitoring are recommended." 
 with col2:
     with st.container(border=True):
         st.subheader("📋 Active Patient Summary Reference")
